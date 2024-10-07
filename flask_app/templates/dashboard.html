@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block head%} <title>Dashboard</title> {% endblock %}
+<!-- You will see me use the nav bar to save time through out the exam. This is something tail wind offers that I modified pretty heavily for my use and saved. Just for clarity, this is borrowed and altered from tailwind. -->
+{% block body %}
+<nav class="flex items-center justify-between flex-wrap p-6 gradient">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight">Welcome, {{ user.first_name }} {{ user.last_name }}!</span>
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+            <a href="/creations/new" class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-white mr-4">
+                Add Your Art
+            </a>
+        </div>
+        <div>
+            <a href="/logout"
+                class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-purple-500 hover:bg-white mt-4 lg:mt-0">log
+                out</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div>
+        <h2>All Art Creations</h2>
+        <table>
+            <thead>
+                <th>Creations</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for creation in creations %}
+                <tr>
+                    <td><a href="/creations/{{ creation.id }}">{{ creation.title }}</a> by {{ creation.first_name }} {{
+                        creation.last_name }}</td>
+                    {% if creation.first_name == user.first_name %}
+                    <td>
+                        <form method="post" action="/creations/delete/{{ creation.id }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td><a href="/creations/edit/{{ creation.id }}">edit</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h2>Your Purchased Creations</h2>
+        <table>
+            <thead>
+                <th>Purchased Creations</th>
+            </thead>
+            <tbody>
+                {% for purchase in purchased_creations %}
+                <tr>
+                    <td><a href="/creations/{{ purchase.id }}">{{ purchase.title }}</a> by {{ purchase.first_name }} {{
+                        purchase.last_name }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head%} <title>View Creation</title> {% endblock %}
+
+{% block body %}
+<nav class="flex items-center justify-between flex-wrap p-6 gradient">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight">{{ creation.title }}</span>
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+            <a href="/dashboard" class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-white mr-4">
+                dashboard
+            </a>
+        </div>
+        <div>
+            <a href="/logout"
+                class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-purple-500 hover:bg-white mt-4 lg:mt-0">log
+                out</a>
+        </div>
+    </div>
+</nav>
+
+<body>
+    <div>
+        <h1>Created by {{creation.first_name}} {{creation.last_name}}</h1>
+        <form class="flex flex-col w-1/2 mx-auto gap-2" name="view_creation" id="view_creation" method="post">
+            <label for="price" id="price" name="price">Price:</label>
+            <input class="text-black" type="text" name="price" id="price" value="{{ creation.price }}">
+            <label for="quantity" id="quantity" name="quantity">Quantity:</label>
+            <input class="text-black" type="text" name="quantity" id="quantity" value="{{ creation.quantity }}">
+            <label for="description" id="description" name="description">Description:</label>
+            <input class="text-black" type="text" name="description" id="description"
+                value="{{ creation.description }}">
+        </form>
+        {% if creation.quantity == 0 %}
+        <button class="bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded">Sold Out!</button>
+        {% else %}
+        <form method="post" action="/creations/purchase/{{ creation.id }}">
+            <button class="bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded">Purchase</button>
+        </form>
+
+        {% endif %}
+    </div>
+</body>
+{% endblock %}

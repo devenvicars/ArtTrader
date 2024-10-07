@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}<title>Register and Login</title>{% endblock %}
+
+{% block body %}
+<div class="grid grid-cols-2 gap-4 place-items-center mt-5">
+    <form name="register" method="post" id="registration_form" class=" text-gray-400 text p-5 gap-2 rounded-md">
+        <h1 class="text-2xl text-pretty">Register</h1>
+        {% with errors = get_flashed_messages(category_filter=["warning"]) %}
+        {% if errors %}
+        <div class="alert-message block-message error bg-red-200 text-red-900 border-red-900 rounded-md p-3">
+            <a class="close" href="/">×</a>
+            <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="flex flex-col justify-center items-center p-5 gap-2">
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" class="bg-gray-400 rounded-md text-gray-950 p-1">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" class="bg-gray-400 rounded-md text-gray-950 p-1">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" class="bg-gray-400 rounded-md text-gray-950 p-1">
+            <label for="password">Password:</label>
+            <input type="text" name="password" id="password" class="bg-gray-400 rounded-md text-gray-950 p-1">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="text" name="confirm_password" id="confirm_password"
+                class="bg-gray-400 rounded-md text-gray-950 p-1">
+            <button class="bg-blue-500 hover:bg-blue-700 text-gray-400 font-bold py-2 px-4 rounded"
+                type="submit">Submit</button>
+        </div>
+    </form>
+
+    <form method="post" id="login_form" class="flex flex-col flex-1 justify-center p-5 gap-2 text-gray-400">
+        <h1 class="text-2xl text-pretty">Login</h1>
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+        <div class="alert-message block-message error bg-red-200 text-red-900 border-red-900 rounded-md p-3">
+            <a class="close" href="/">×</a>
+            <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <label for=" email" class="text-gray-400">Email:</label>
+        <input type="text" name="email" id="email" class="bg-gray-400 rounded-md text-gray-950 p-1">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" class="bg-gray-400 rounded-md  text-gray-950 p-1">
+        <button name="login" class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+            type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head%} <title>Add Creation</title> {% endblock %}
+
+{% block body %}
+<nav class="flex items-center justify-between flex-wrap p-6 gradient">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight">Add Your Art Creation</span>
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+            <a href="/dashboard" class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-white mr-4">
+                dashboard
+            </a>
+        </div>
+        <div>
+            <a href="/logout"
+                class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-purple-500 hover:bg-white mt-4 lg:mt-0">log
+                out</a>
+        </div>
+    </div>
+</nav>
+
+<body>
+    <div>
+        {% with errors = get_flashed_messages() %}
+        {% if errors %}
+        <div
+            class="alert-message block-message error bg-red-200 text-red-900 border-red-900 rounded-md p-3  w-1/2 mx-auto">
+            <a class="close" href="/creations/new">×</a>
+            <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form class="flex flex-col w-1/2 mx-auto gap-2" name="add_creation" id="add_creation" method="post">
+            <label for="title" id="title" name="title">Title:</label>
+            <input class="text-black" type="text" name="title" id="title">
+            <label for="description" id="description" name="description">Description:</label>
+            <input class="text-black" type="text" name="description" id="description">
+            <label for="price" id="price" name="price">Price:</label>
+            <input class="text-black" type="number" name="price" id="price">
+            <label for="quantity" id="quantity" name="quantity">Quantity:</label>
+            <input class="text-black" type="number" name="quantity" id="quantity">
+            <button class="bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded" name="cancel"
+                type="reset">Cancel</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded" name="submit"
+                type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
